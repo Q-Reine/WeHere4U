@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import '../styles/home.css'
 import imagepro2 from '../assets/imagepro2.jpg';
-import home2 from '../assets/home2.JPG'
+import home2 from '../assets/home2.jpg'
 import baco from '../assets/baco.jpg'
 import baco1 from '../assets/baco1.jpg'
 import chair from '../assets/chair.webp'
