@@ -1,0 +1,29 @@
+.navcontainer{
+   display: flex;
+   flex-direction: row;
+   
+}
+.cont{
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem; 
+}
+
+.cont1{
+    width: 9rem;
+    height: 4rem;
+}
+
+.button1{
+    width: 5rem;
+    background-color: aqua;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    padding: 3px;
+}
+.button1:hover
+{
+    cursor: pointer;
+    transform: translateY(-3px);
+}

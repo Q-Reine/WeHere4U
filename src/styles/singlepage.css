@@ -1,0 +1,84 @@
+.allContents{
+    margin-left: 100px;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+    gap:100px;
+}
+
+.cartBtn{
+    width: 100%;
+    height: 4rem;
+    background-color: grey;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    padding: 3px;
+    margin-left: 150px;
+    margin-top: 5px;
+}
+
+.cardTitle{
+    margin-top: 10px;
+    margin-left: 80px;
+    font-weight: bold;
+    font-size: 40px;
+}
+.staricons{
+  color: yellow;
+  margin-left: 80px;
+  margin-top: 40px;
+}
+.cardPrice{
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 80px;
+}
+
+.cardContent{
+    margin-top: 30px;
+    height: 100px;
+    width: 400px;
+    margin-left: 80px;
+}
+
+.circle1{
+    color: chocolate;
+}
+
+.circle2{
+    color: blanchedalmond;
+}
+
+.cirleColors{
+    margin-left: 80px;
+    margin-top: 20px;
+}
+
+.colorTitle{
+    margin-right: 30px;
+ 
+}
+
+.rectangleBox{
+    margin-left: 80px;
+}
+
+.p-plus{
+    margin-left: 180px;
+}
+
+.p-minus{
+margin-right: 2px;
+}
+
+.text-lg{
+   font-weight: bold;
+   margin-left: 150px;
+}
+
+.cartBtn{
+    margin-top: 30px;
+    width: 100px;
+}

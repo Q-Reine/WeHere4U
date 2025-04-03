@@ -1,0 +1,115 @@
+.service-providers-container {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-left: 250px;
+    margin-top: 60px;
+  }
+  
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+  }
+  
+  .dashboard-header h2 {
+    margin: 0;
+    color: #333;
+    font-size: 1.5rem;
+  }
+  
+  .dashboard-actions {
+    display: flex;
+    align-items: center;
+  }
+  
+  .metric-selector {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .dashboard-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .charts-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .charts-container {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .chart-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+  }
+  
+  .chart-card h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #555;
+    font-size: 1.1rem;
+    text-align: center;
+  }
+  
+  .providers-table-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+  }
+  
+  .providers-table-container h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #555;
+    font-size: 1.1rem;
+  }
+  
+  .providers-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .providers-table th,
+  .providers-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .providers-table th {
+    background-color: #f5f5f5;
+    font-weight: 600;
+    color: #444;
+  }
+  
+  .providers-table tbody tr:hover {
+    background-color: #f8f8f8;
+  }
+  
+  .providers-table td:nth-child(2),
+  .providers-table td:nth-child(3) {
+    text-align: right;
+  }
+  
+  .providers-table td:nth-child(4) {
+    text-align: center;
+  }

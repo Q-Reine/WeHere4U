@@ -1,0 +1,352 @@
+.home {
+    position: relative;
+  }
+  
+  .home h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: #212529;
+  }
+  
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .dashboard-card {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+  }
+  
+  .card-header h3 {
+    margin: 0;
+    font-size: 1.125rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #212529;
+  }
+  
+  .header-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #6c757d;
+  }
+  
+  .view-all {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    color: #0d6efd;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s ease;
+  }
+  
+  .view-all:hover {
+    background-color: rgba(13, 110, 253, 0.1);
+    text-decoration: underline;
+  }
+  
+  .arrow-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+  
+  /* Recent Orders */
+  .order-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    background-color: #f8f9fa;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .order-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .order-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .order-id {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6c757d;
+  }
+  
+  .order-product {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  
+  .order-date {
+    font-size: 0.75rem;
+    color: #6c757d;
+  }
+  
+  .order-status {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  
+  .status-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+  
+  .status-icon.processing {
+    color: #ffc107;
+  }
+  
+  .status-icon.completed {
+    color: #198754;
+  }
+  
+  .status-icon.failed {
+    color: #dc3545;
+  }
+  
+  .status-text {
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  
+  .status-text.processing {
+    color: #ffc107;
+  }
+  
+  .status-text.completed {
+    color: #198754;
+  }
+  
+  .status-text.failed {
+    color: #dc3545;
+  }
+  
+  /* Upcoming Deliveries */
+  .delivery-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .delivery-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    background-color: #f8f9fa;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .delivery-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .delivery-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .delivery-id {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6c757d;
+  }
+  
+  .delivery-product {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  
+  .delivery-date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+  }
+  
+  .date-label {
+    font-size: 0.75rem;
+    color: #6c757d;
+  }
+  
+  .date-value {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #0d6efd;
+  }
+  
+  /* Recommended Products */
+  .product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .product-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    background-color: #f8f9fa;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .product-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .product-image {
+    width: 3rem;
+    height: 3rem;
+    object-fit: cover;
+    border-radius: 0.25rem;
+    margin-right: 1rem;
+  }
+  
+  .product-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .product-name {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  
+  .product-price {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #0d6efd;
+  }
+  
+  .view-product-btn {
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .view-product-btn:hover {
+    background-color: #f8f9fa;
+    border-color: #adb5bd;
+  }
+  
+  /* For larger screens */
+  @media (min-width: 768px) {
+    .dashboard-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .recommended {
+      grid-column: span 2;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .dashboard-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .recommended {
+      grid-column: span 1;
+    }
+  }
+  
+  /* High contrast mode for visual impairments */
+  [data-theme="dark"] .home h2,
+  [data-theme="dark"] .card-header h3 {
+    color: #f8f9fa;
+  }
+  
+  [data-theme="dark"] .dashboard-card {
+    background-color: #343a40;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  [data-theme="dark"] .header-icon {
+    color: #adb5bd;
+  }
+  
+  [data-theme="dark"] .view-all {
+    color: #8bb9fe;
+  }
+  
+  [data-theme="dark"] .view-all:hover {
+    background-color: rgba(139, 185, 254, 0.2);
+  }
+  
+  [data-theme="dark"] .order-item,
+  [data-theme="dark"] .delivery-item,
+  [data-theme="dark"] .product-item {
+    background-color: #495057;
+  }
+  
+  [data-theme="dark"] .order-id,
+  [data-theme="dark"] .order-date,
+  [data-theme="dark"] .delivery-id,
+  [data-theme="dark"] .date-label {
+    color: #adb5bd;
+  }
+  
+  [data-theme="dark"] .order-product,
+  [data-theme="dark"] .delivery-product,
+  [data-theme="dark"] .product-name {
+    color: #f8f9fa;
+  }
+  
+  [data-theme="dark"] .date-value,
+  [data-theme="dark"] .product-price {
+    color: #8bb9fe;
+  }
+  
+  [data-theme="dark"] .view-product-btn {
+    background-color: #343a40;
+    border-color: #495057;
+    color: #f8f9fa;
+  }
+  
+  [data-theme="dark"] .view-product-btn:hover {
+    background-color: #495057;
+    border-color: #6c757d;
+  }
+  

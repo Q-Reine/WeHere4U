@@ -1,0 +1,239 @@
+.orders {
+    position: relative;
+  }
+  
+  .orders h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: #212529;
+  }
+  
+  .order-filters {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .filter-btn {
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .filter-btn:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .filter-btn.active {
+    background-color: #0d6efd;
+    color: #ffffff;
+    border-color: #0d6efd;
+  }
+  
+  .orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .order-card {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .order-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+  
+  .order-id-date {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .order-id {
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+  
+  .order-date {
+    font-size: 0.75rem;
+    color: #6c757d;
+  }
+  
+  .order-status {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  
+  .status-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+  
+  .status-icon.processing {
+    color: #ffc107;
+  }
+  
+  .status-icon.completed {
+    color: #198754;
+  }
+  
+  .status-icon.failed {
+    color: #dc3545;
+  }
+  
+  .status-text {
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  
+  .status-text.processing {
+    color: #ffc107;
+  }
+  
+  .status-text.completed {
+    color: #198754;
+  }
+  
+  .status-text.failed {
+    color: #dc3545;
+  }
+  
+  .order-items {
+    margin-bottom: 0.75rem;
+  }
+  
+  .order-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    padding: 0.25rem 0;
+  }
+  
+  .item-name {
+    color: #212529;
+  }
+  
+  .item-quantity {
+    color: #6c757d;
+  }
+  
+  .order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #e9ecef;
+    padding-top: 0.75rem;
+  }
+  
+  .order-total {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  
+  .total-label {
+    font-size: 0.875rem;
+    color: #6c757d;
+  }
+  
+  .total-amount {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  
+  .chevron-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #6c757d;
+  }
+  
+  .no-orders {
+    text-align: center;
+    padding: 2rem;
+    color: #6c757d;
+  }
+  
+  /* High contrast mode for visual impairments */
+  [data-theme="dark"] .orders h2 {
+    color: #f8f9fa;
+  }
+  
+  [data-theme="dark"] .filter-btn {
+    background-color: #343a40;
+    border-color: #495057;
+    color: #f8f9fa;
+  }
+  
+  [data-theme="dark"] .filter-btn:hover {
+    background-color: #495057;
+  }
+  
+  [data-theme="dark"] .filter-btn.active {
+    background-color: #8bb9fe;
+    color: #212529;
+    border-color: #8bb9fe;
+  }
+  
+  [data-theme="dark"] .order-card {
+    background-color: #343a40;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  [data-theme="dark"] .order-id {
+    color: #f8f9fa;
+  }
+  
+  [data-theme="dark"] .order-date {
+    color: #adb5bd;
+  }
+  
+  [data-theme="dark"] .item-name {
+    color: #f8f9fa;
+  }
+  
+  [data-theme="dark"] .item-quantity {
+    color: #adb5bd;
+  }
+  
+  [data-theme="dark"] .order-footer {
+    border-color: #495057;
+  }
+  
+  [data-theme="dark"] .total-label {
+    color: #adb5bd;
+  }
+  
+  [data-theme="dark"] .total-amount {
+    color: #f8f9fa;
+  }
+  
+  [data-theme="dark"] .chevron-icon {
+    color: #adb5bd;
+  }
+  
+  [data-theme="dark"] .no-orders {
+    color: #adb5bd;
+  }
+  
+  

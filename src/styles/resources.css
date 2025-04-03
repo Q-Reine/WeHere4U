@@ -1,0 +1,284 @@
+.resources-content {
+  width: 100%;
+  font-family: Arial, sans-serif;
+}
+.hero-content {
+  position: relative;
+  width: 100%;
+  height:550px;
+  overflow: hidden;
+}
+
+.hero-content img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(60%);
+}
+.hero-1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  width: 100%;
+}
+
+.assistive-tech-guide {
+    text-align: center;
+    padding: 40px;
+    background-color: #fff;
+  }
+  
+  .assistive-tech-guide h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .assistive-tech-guide p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+  }
+  
+  .guide-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    padding: 0 20px;
+  }
+  
+  .guide-card {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .guide-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .guide-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  
+  .guide-card h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #222;
+    margin-top: 10px;
+  }
+  
+  .guide-date {
+    font-size: 14px;
+    color: #888;
+    margin: 5px 0;
+  }
+
+
+  /* .hero-content img{
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    height: 300px; /* Adjust height as needed */
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+  /* }
+   */ */
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* .hero-content {
+    text-align: center;
+    max-width: 100%;
+    height: 500px;
+    padding: 20px;
+  } */
+  
+  .hero-content h1 {
+    font-size: 32px;
+    font-weight: bold;
+  }
+  
+  .hero-content p {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+
+
+  .assess-section {
+    text-align: center;
+    padding: 40px 20px;
+   
+  }
+  
+  .subtitle {
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
+  
+  .assess-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 900px;
+    margin: auto;
+  }
+  
+  .assess-item {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    gap: 20px;
+  }
+  
+  .assess-item img {
+    width: 200px;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .text-content h3 {
+    font-weight: bold;
+  }
+  
+  .text-content p {
+    font-size: 14px;
+    color:#888;
+  }
+  
+  @media (max-width: 768px) {
+    .assess-item {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .assess-item img {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+
+  .funding-section {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #cbc6c6;
+  }
+  
+  .subtitle {
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
+  
+  .funding-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: auto;
+  }
+  
+  .funding-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+  }
+  
+  .funding-card img {
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  .funding-card h3 {
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+  }
+  
+  .funding-card p {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+  }
+  
+  @media (max-width: 768px) {
+    .funding-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  
+  .faq-section {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: white;
+  }
+  
+  .subtitle {
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
+  
+  .faq-container {
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .faq-item {
+    background: black;
+    color: white;
+    padding: 15px 20px;
+    margin: 10px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.3s ease;
+  }
+  
+  .faq-item.open {
+    background: #222;
+  }
+  
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+  }
+  
+  .faq-answer {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #ddd;
+  }
+  

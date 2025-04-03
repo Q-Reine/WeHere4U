@@ -1,0 +1,160 @@
+:root {
+  --primary-green: #2ecc71;
+  --secondary-green: #27ae60;
+  --background-color: #f4f4f4;
+  --text-color: #333;
+}
+
+/* Fade-in animation for the login container */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.login-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--background-color);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.login-illustration {
+  flex: 1;
+  background-color: var(--primary-green);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 2rem;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Image zoom effect */
+.logo-container {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-container img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  max-height: 100vh;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Slight zoom on hover */
+.logo-container img:hover {
+  transform: scale(1.05);
+}
+
+.login-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Form input effects */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Highlight input when focused */
+.form-group input:focus {
+  border-color: var(--primary-green);
+  box-shadow: 0 0 8px rgba(46, 204, 113, 0.5);
+  outline: none;
+}
+
+/* Button animations */
+.submit-btn {
+  background-color: var(--primary-green);
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.submit-btn:hover {
+  background-color: var(--secondary-green);
+  transform: scale(1.05);
+}
+
+/* Toggle form button */
+.form-toggle {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: var(--primary-green);
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  transition: color 0.3s ease-in-out;
+}
+
+.toggle-btn:hover {
+  color: var(--secondary-green);
+}
+
+@media (max-width: 768px) {
+  .login-container {
+      flex-direction: column;
+  }
+
+  .login-illustration {
+      flex: none;
+      height: 40vh;
+      padding: 1rem;
+  }
+
+  .login-form {
+      max-width: 100%;
+      padding: 1.5rem;
+      box-shadow: none;
+  }
+
+  .logo-container img {
+      width: auto;
+      height: 100%;
+      max-height: none;
+  }
+}
