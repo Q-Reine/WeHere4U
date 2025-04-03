@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation, Outlet } from 'react-router-dom';
 import axios from 'axios';
 import Layout from './components/Layout';
 import Home from './components/Home';
@@ -19,7 +19,6 @@ import ServiceProviders from './Dashboard/ServiceProviders';
 import ResourceHub from './Dashboard/ResourceHub';
 import Settings from './Dashboard/Settings';
 import Ulayout from './UComponents/Ulayout';
-import Usidebar from './UComponents/Usidebar';
 import Store from './UComponents/Store';
 import Orders from './UComponents/orders';
 import OrderDetails from './UComponents/order-details';
@@ -29,73 +28,27 @@ import UserHome from './UComponents/home';
 import LocationModal from './UComponents/location-modal';
 import './App.css';
 
-// Authentication guard with role checking
+// Authentication guard component
 const RequireAuth = ({ children, allowedRoles = [] }) => {
-  const [isChecking, setIsChecking] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userRole, setUserRole] = useState(null);
   const location = useLocation();
-
-  useEffect(() => {
-    const verifyAuth = async () => {
-      try {
-        const token = localStorage.getItem('userToken');
-        
-        if (!token) {
-          setIsAuthenticated(false);
-          setIsChecking(false);
-          return;
-        }
-        
-        // Verify token with your backend
-        const response = await axios.get('http://localhost:3001/api/verify-token', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        
-        if (response.data.success) {
-          setIsAuthenticated(true);
-          setUserRole(response.data.user.role);
-        } else {
-          // Token invalid or expired
-          localStorage.removeItem('userToken');
-          localStorage.removeItem('userRole');
-          localStorage.removeItem('userData');
-          setIsAuthenticated(false);
-        }
-      } catch (error) {
-        console.error('Auth verification error:', error);
-        setIsAuthenticated(false);
-      } finally {
-        setIsChecking(false);
-      }
-    };
-    
-    verifyAuth();
-  }, [location.pathname]);
   
-  // Show loading while checking authentication
-  if (isChecking) {
-    return <div className="loading">Verifying authentication...</div>;
-  }
+  // Check if user is authenticated and has correct role
+  const token = localStorage.getItem('userToken');
+  const userRole = localStorage.getItem('userRole');
   
-  // Redirect to login if not authenticated
-  if (!isAuthenticated) {
+  // If no token exists, redirect to login
+  if (!token) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
   
-  // Check if user has required role
+  // If roles specified and user doesn't have permission
   if (allowedRoles.length > 0 && !allowedRoles.includes(userRole)) {
-    // Redirect to appropriate dashboard based on role
-    if (userRole === 'admin') {
-      return <Navigate to="/dashboard" replace />;
-    } else {
-      return <Navigate to="/user/home" replace />;
-    }
+    // Redirect based on role
+    const redirectPath = userRole === 'admin' ? '/dashboard' : '/user/home';
+    return <Navigate to={redirectPath} state={{ from: location }} replace />;
   }
   
-  // User is authenticated and has required role
+  // User authenticated and authorized
   return children;
 };
 
@@ -105,14 +58,32 @@ function App() {
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userRole, setUserRole] = useState(null);
   
-  // Handle logout
-  const handleLogout = () => {
-    localStorage.removeItem('userToken');
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('userData');
-    return <Navigate to="/" replace />;
-  };
+  // Check authentication status on app load
+  useEffect(() => {
+    const checkAuthStatus = () => {
+      const token = localStorage.getItem('userToken');
+      const role = localStorage.getItem('userRole');
+      
+      if (token) {
+        setIsAuthenticated(true);
+        setUserRole(role);
+      } else {
+        setIsAuthenticated(false);
+        setUserRole(null);
+      }
+    };
+    
+    checkAuthStatus();
+    // Set up an event listener for storage changes
+    window.addEventListener('storage', checkAuthStatus);
+    
+    return () => {
+      window.removeEventListener('storage', checkAuthStatus);
+    };
+  }, []);
 
   // Toggle cart visibility
   const toggleCart = () => {
@@ -124,23 +95,49 @@ function App() {
     setSelectedOrder(order);
   };
 
-  // Handle login success
-  const handleLoginSuccess = (role) => {
-    // Return the appropriate redirect path
-    return role === 'admin' ? '/dashboard' : '/user/home';
+  // Handle product view
+  const handleViewProduct = (product) => {
+    console.log("Viewing product:", product);
+    // Add navigation logic here
   };
 
-  // Shared state for user components
-  const userContextValue = {
-    cartItems,
-    setCartItems,
-    location,
-    setLocation,
-    showLocationModal,
-    setShowLocationModal,
-    showCart,
-    setShowCart,
-    toggleCart
+  // Handle view all
+  const handleViewAll = (section) => {
+    console.log("View all for:", section);
+    // Add navigation logic here
+    if (section === 'orders') {
+      // Navigate to orders page
+      window.location.href = '/user/orders';
+    } else if (section === 'products') {
+      // Navigate to store page
+      window.location.href = '/user/store';
+    }
+  };
+
+  // Handle login success
+  const handleLoginSuccess = (userData) => {
+    // Store user data
+    localStorage.setItem('userToken', userData.token);
+    localStorage.setItem('userRole', userData.role);
+    localStorage.setItem('userData', JSON.stringify(userData));
+    
+    setIsAuthenticated(true);
+    setUserRole(userData.role);
+    
+    // Return redirect path based on role
+    return userData.role === 'admin' ? '/dashboard' : '/user/home';
+  };
+  
+  // Handle logout
+  const handleLogout = () => {
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('userData');
+    
+    setIsAuthenticated(false);
+    setUserRole(null);
+    
+    window.location.href = '/login';
   };
 
   return (
@@ -153,76 +150,99 @@ function App() {
           <Route path="Resources" element={<Resources />} />
           <Route path="Community" element={<Community />} />
           <Route path="GetInvolved" element={<GetInvolved />} />
-          <Route path="login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
+          <Route path="login" element={
+            isAuthenticated ? (
+              <Navigate to={userRole === 'admin' ? '/dashboard' : '/user/home'} replace />
+            ) : (
+              <Login onLoginSuccess={handleLoginSuccess} />
+            )
+          } />
           <Route path="SinglePage/:id" element={<SinglePage />} />
           <Route path="view" element={<ProductPage />} />
         </Route>
 
-        {/* Redirect Root */}
-        <Route
-          path="/"
-          element={
-            localStorage.getItem('userToken') ? (
-              localStorage.getItem('userRole') === 'admin' ? (
-                <Navigate to="/dashboard" replace />
-              ) : (
-                <Navigate to="/user/home" replace />
-              )
-            ) : (
-              <Navigate to="/" replace />
-            )
-          }
-        />
-
-        {/* Admin dashboard routes - protected */}
-        <Route
-          path="/dashboard"
-          element={
-            <RequireAuth allowedRoles={['admin']}>
-              <DashboardLayout onLogout={handleLogout} />
-            </RequireAuth>
-          }
-        >
+        {/* Admin Protected Routes */}
+        <Route path="/dashboard" element={
+          <RequireAuth allowedRoles={['admin']}>
+            <DashboardLayout onLogout={handleLogout} />
+          </RequireAuth>
+        }>
           <Route index element={<DashboardView />} />
           <Route path="usermanagement" element={<UserManagement />} />
           <Route path="devices" element={<AssistiveDevices />} />
           <Route path="providers" element={<ServiceProviders />} />
           <Route path="savedresources" element={<ResourceHub />} />
           <Route path="settings" element={<Settings />} />
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Route>
 
-        {/* User dashboard routes - protected */}
-        <Route
-          path="/user"
-          element={
-            <RequireAuth allowedRoles={['user']}>
-              <Ulayout 
-                cartItems={cartItems}
-                toggleCart={toggleCart}
-                location={location}
-                showLocationModal={showLocationModal}
-                setShowLocationModal={setShowLocationModal}
-                showCart={showCart}
-                setShowCart={setShowCart}
-                setLocation={setLocation}
-                setCartItems={setCartItems}
-              />
-            </RequireAuth>
-          }
-        >
-          <Route index element={<Navigate to="/user/home" replace />} />
-          <Route path="home" element={<UserHome />} />
+        {/* User Protected Routes */}
+        <Route path="/user" element={
+          <RequireAuth allowedRoles={['user']}>
+            <Ulayout 
+              cartItems={cartItems}
+              toggleCart={toggleCart}
+              location={location}
+              showLocationModal={showLocationModal}
+              setShowLocationModal={setShowLocationModal}
+              showCart={showCart}
+              setShowCart={setShowCart}
+              setLocation={setLocation}
+              setCartItems={setCartItems}
+              onLogout={handleLogout}
+            />
+          </RequireAuth>
+        }>
+          <Route index element={<Navigate to="home" replace />} />
+          <Route path="home" element={
+            <UserHome 
+              onViewProduct={handleViewProduct} 
+              onViewAll={handleViewAll} 
+            />
+          } />
           <Route path="store" element={<Store />} />
           <Route path="orders" element={<Orders onOrderClick={handleOrderClick} />} />
           <Route path="orders/:id" element={<OrderDetails order={selectedOrder} />} />
           <Route path="profile" element={<Profile />} />
           <Route path="settings" element={<Settings />} />
           <Route path="help" element={<Help />} />
-          <Route path="cart" element={<Cart items={cartItems} setItems={setCartItems} />} />
-          <Route path="*" element={<Navigate to="/user/home" replace />} />
+          <Route path="cart" element={
+            <Cart 
+              items={cartItems} 
+              setItems={setCartItems} 
+              onClose={() => setShowCart(false)}
+            />
+          } />
         </Route>
+
+        {/* Catch all - redirect to home or login */}
+        <Route path="*" element={
+          isAuthenticated ? (
+            userRole === 'admin' ? 
+              <Navigate to="/dashboard" replace /> : 
+              <Navigate to="/user/home" replace />
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        } />
       </Routes>
+      
+      {/* Location Modal - outside of routes */}
+      {showLocationModal && (
+        <LocationModal 
+          currentLocation={location} 
+          onLocationChange={setLocation} 
+          onClose={() => setShowLocationModal(false)} 
+        />
+      )}
+      
+      {/* Cart Modal - outside of routes */}
+      {showCart && (
+        <Cart 
+          items={cartItems} 
+          setItems={setCartItems} 
+          onClose={() => setShowCart(false)} 
+        />
+      )}
     </BrowserRouter>
   );
 }
