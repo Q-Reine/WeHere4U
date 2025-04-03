@@ -1,32 +1,28 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import Sidebar from './Usidebar';
-import LocationModal from './location-modal';
-import CartContext from './CartContext'; // You'll need to create this context
+import Usidebar from './Usidebar';
+import './Ulayout.css'; // Make sure you have this CSS file
 
-const UserLayout = () => {
-  const [activeItem, setActiveItem] = useState('home');
-  const [showLocationModal, setShowLocationModal] = useState(false);
-  const [location, setLocation] = useState('Masoro, Gasabo, Kigali City');
+const Ulayout = ({ 
+  cartItems, 
+  toggleCart, 
+  location, 
+  showLocationModal, 
+  setShowLocationModal, 
+  onLogout, 
+  setLocation
+}) => {
+  const [activeItem, setActiveItem] = React.useState('home');
   const navigate = useNavigate();
-  
-  // Use CartContext (you'll need to create this)
-  const { cartItems, toggleCart } = useContext(CartContext);
 
-  // Handle location change
-  const handleLocationChange = (newLocation) => {
-    setLocation(newLocation);
-    setShowLocationModal(false);
-  };
-
-  // Handle sidebar item selection
-  const handleSidebarItemClick = (item) => {
+  // Handle sidebar item click
+  const handleSidebarClick = (item) => {
     setActiveItem(item);
-    navigate(`/user/${item === 'home' ? '' : item}`);
+    navigate(`/user/${item}`);
   };
 
   return (
-    <div className="dashboard">
+    <div className="user-dashboard-container">
       <div className="dashboard-header">
         <h1>Ubufasha Assistive Devices</h1>
         <div className="dashboard-actions">
@@ -42,27 +38,23 @@ const UserLayout = () => {
           </div>
         </div>
       </div>
-      
-      <main className="dashboard-content">
-        <Outlet context={{ location }} />
-      </main>
-      
-      <Sidebar 
-        activeItem={activeItem} 
-        setActiveItem={handleSidebarItemClick} 
-        cartCount={cartItems.length} 
-        toggleCart={toggleCart} 
-      />
-      
-      {showLocationModal && (
-        <LocationModal 
-          currentLocation={location} 
-          onLocationChange={handleLocationChange} 
-          onClose={() => setShowLocationModal(false)} 
+
+      <div className="dashboard-content">
+        <Usidebar 
+          activeItem={activeItem} 
+          setActiveItem={handleSidebarClick} 
+          cartCount={cartItems?.length || 0} 
+          toggleCart={toggleCart}
+          onLogout={onLogout}
         />
-      )}
+        
+        <main className="content-area">
+          {/* This is where the nested routes will render */}
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 };
 
-export default UserLayout;
+export default Ulayout;
