@@ -1,55 +1,43 @@
 import React from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
-import Usidebar from './Usidebar';
-import './Ulayout.css'; // Make sure you have this CSS file
+import { Outlet } from 'react-router-dom';
+import './Ulayout.css';
 
 const Ulayout = ({ 
   cartItems, 
   toggleCart, 
   location, 
-  showLocationModal, 
-  setShowLocationModal, 
-  onLogout, 
-  setLocation
+  setShowLocationModal,
+  onLogout
 }) => {
-  const [activeItem, setActiveItem] = React.useState('home');
-  const navigate = useNavigate();
-
-  // Handle sidebar item click
-  const handleSidebarClick = (item) => {
-    setActiveItem(item);
-    navigate(`/user/${item}`);
-  };
-
   return (
     <div className="user-dashboard-container">
-      <div className="dashboard-header">
-        <h1>Ubufasha Assistive Devices</h1>
+      <header className="dashboard-header">
+        <h1>User Dashboard</h1>
+        
         <div className="dashboard-actions">
+          <div className="location">
+            <span>
+              <i className="icon-location"></i> {location}
+            </span>
+            <button 
+              className="change-location-btn"
+              onClick={() => setShowLocationModal(true)}
+            >
+              Change
+            </button>
+          </div>
+          
           <div className="cart-button" onClick={toggleCart}>
-            <span className="cart-icon">🛒</span>
+            <i className="cart-icon">🛒</i>
             {cartItems.length > 0 && (
               <span className="cart-count">{cartItems.length}</span>
             )}
           </div>
-          <div className="location" onClick={() => setShowLocationModal(true)}>
-            <span>Delivering to: {location}</span>
-            <button className="change-location-btn">Change</button>
-          </div>
         </div>
-      </div>
-
+      </header>
+      
       <div className="dashboard-content">
-        <Usidebar 
-          activeItem={activeItem} 
-          setActiveItem={handleSidebarClick} 
-          cartCount={cartItems?.length || 0} 
-          toggleCart={toggleCart}
-          onLogout={onLogout}
-        />
-        
         <main className="content-area">
-          {/* This is where the nested routes will render */}
           <Outlet />
         </main>
       </div>

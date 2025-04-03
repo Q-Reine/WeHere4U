@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import axios from 'axios';
 import '../styles/login.css';
 
@@ -92,6 +93,13 @@ function AuthForm({ onLoginSuccess }) {
     setError('');
     setSuccess('');
   };
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+    if (isAuthenticated) {
+      navigate('/user/home');
+    }
+  }, [navigate]);
 
   return (
     <div className="auth-container">
