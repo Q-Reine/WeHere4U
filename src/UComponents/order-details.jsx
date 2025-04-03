@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowLeft, Truck, Calendar, MapPin, CreditCard, Package, CheckCircle, XCircle, Phone } from 'lucide-react';
-import '../UserDashboard/userdashboardstyles/order-details.css';
+import './order-details.css';
 
 const OrderDetails = ({ order, onBack }) => {
   const formatDate = (dateString) => {

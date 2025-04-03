@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { User, Mail, Phone, MapPin, Edit2, Save, X } from "lucide-react"
-import "../UserDashboard/userdashboardstyles/profile.css"
+import "./profile.css"
 
 const Profile = () => {
   const [profile, setProfile] = useState({
@@ -172,3 +172,4 @@ const Profile = () => {
 }
 
 export default Profile
+

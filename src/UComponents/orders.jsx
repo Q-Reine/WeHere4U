@@ -1,9 +1,8 @@
-
 "use client"
 
 import { useState } from "react"
 import { Clock, CheckCircle, XCircle, ChevronRight } from "lucide-react"
-import "../UserDashboard/userdashboardstyles/orders.css"
+import "./orders.css"
 
 const Orders = ({ onOrderClick }) => {
   const [activeFilter, setActiveFilter] = useState("all")
@@ -175,3 +174,4 @@ const Orders = ({ onOrderClick }) => {
 }
 
 export default Orders
+

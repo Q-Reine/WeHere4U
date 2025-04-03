@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { Search, ShoppingCart, Eye } from 'lucide-react'
-import "../UserDashboard/userdashboardstyles/store.css"
-// import photo from './Screenshot 2025-03-01 223501.png'
-// import photo2 from './Screenshot 2025-03-01 223549.png'
+import "./store.css"
+import photo from './Screenshot 2025-03-01 223501.png'
+import photo2 from './Screenshot 2025-03-01 223549.png'
 
 const Store = ({ onAddToCart }) => {
   const [searchQuery, setSearchQuery] = useState("")

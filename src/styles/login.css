@@ -1,160 +1,336 @@
 :root {
   --primary-green: #2ecc71;
   --secondary-green: #27ae60;
+  --primary-hover: #25b35a;
   --background-color: #f4f4f4;
   --text-color: #333;
+  --error-color: #e74c3c;
+  --success-color: #2ecc71;
+  --border-color: #ddd;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --white: #ffffff;
+  --form-bg: #ffffff;
 }
 
-/* Fade-in animation for the login container */
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+/* Animation definitions */
 @keyframes fadeIn {
   from {
-      opacity: 0;
-      transform: translateY(20px);
+    opacity: 0;
+    transform: translateY(20px);
   }
   to {
-      opacity: 1;
-      transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.login-container {
+@keyframes slideIn {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Main container */
+.auth-container {
   display: flex;
   min-height: 100vh;
   background-color: var(--background-color);
-  animation: fadeIn 0.8s ease-in-out;
 }
 
-.login-illustration {
+/* Illustration/branding side */
+.auth-illustration {
   flex: 1;
   background-color: var(--primary-green);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
   padding: 2rem;
-  transition: transform 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Image zoom effect */
 .logo-container {
   width: 100%;
-  max-width: 500px;
+  max-width: 300px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 2rem;
+  animation: fadeIn 0.8s ease-in-out;
 }
 
 .logo-container img {
   width: 100%;
   height: auto;
-  object-fit: cover;
-  max-height: 100vh;
   transition: transform 0.3s ease-in-out;
 }
 
-/* Slight zoom on hover */
 .logo-container img:hover {
   transform: scale(1.05);
 }
 
-.login-form {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 2rem;
-  max-width: 500px;
-  margin: auto;
-  background: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  animation: fadeIn 1s ease-in-out;
+.illustration-text {
+  color: var(--white);
+  text-align: center;
+  animation: fadeIn 1s ease-in-out 0.2s forwards;
+  opacity: 0;
 }
 
-/* Form input effects */
-.form-group {
+.illustration-text h1 {
+  font-size: 2rem;
   margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.illustration-text p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* Form side */
+.auth-form-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.auth-form-wrapper {
+  width: 100%;
+  max-width: 500px;
+  background: var(--form-bg);
+  box-shadow: 0 8px 20px var(--shadow-color);
+  border-radius: 12px;
+  padding: 2.5rem;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.auth-form-wrapper h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+/* Message styling */
+.message {
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.error-message {
+  background-color: rgba(231, 76, 60, 0.1);
+  color: var(--error-color);
+  border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+.success-message {
+  background-color: rgba(46, 204, 113, 0.1);
+  color: var(--success-color);
+  border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+/* Form elements */
+.auth-form {
+  margin-bottom: 1.5rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+  width: 100%;
 }
 
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
   color: var(--text-color);
+  font-weight: 500;
+  font-size: 0.95rem;
 }
 
 .form-group input {
   width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 0.85rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
   font-size: 1rem;
-  transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
-/* Highlight input when focused */
 .form-group input:focus {
   border-color: var(--primary-green);
-  box-shadow: 0 0 8px rgba(46, 204, 113, 0.5);
+  box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
   outline: none;
 }
 
-/* Button animations */
+.form-group input::placeholder {
+  color: #aaa;
+}
+
+/* Button styles */
+.form-action {
+  margin-top: 1.5rem;
+}
+
 .submit-btn {
   background-color: var(--primary-green);
   color: white;
   border: none;
-  padding: 0.75rem;
-  border-radius: 4px;
+  width: 100%;
+  padding: 0.95rem;
+  border-radius: 6px;
   font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .submit-btn:hover {
-  background-color: var(--secondary-green);
-  transform: scale(1.05);
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Toggle form button */
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+.submit-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Toggle links */
 .form-toggle {
   text-align: center;
-  margin-top: 1rem;
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-toggle span {
+  color: #666;
+  font-size: 0.95rem;
 }
 
 .toggle-btn {
   background: none;
   border: none;
   color: var(--primary-green);
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
   margin-left: 0.5rem;
   transition: color 0.3s ease-in-out;
+  font-size: 0.95rem;
 }
 
 .toggle-btn:hover {
   color: var(--secondary-green);
+  text-decoration: underline;
 }
 
-@media (max-width: 768px) {
-  .login-container {
-      flex-direction: column;
+/* Responsive styles */
+@media (max-width: 992px) {
+  .auth-container {
+    flex-direction: column;
   }
 
-  .login-illustration {
-      flex: none;
-      height: 40vh;
-      padding: 1rem;
+  .auth-illustration {
+    flex: none;
+    height: 30vh;
+    min-height: 200px;
   }
 
-  .login-form {
-      max-width: 100%;
-      padding: 1.5rem;
-      box-shadow: none;
+  .logo-container {
+    max-width: 200px;
+    margin-bottom: 1rem;
   }
 
-  .logo-container img {
-      width: auto;
-      height: 100%;
-      max-height: none;
+  .illustration-text h1 {
+    font-size: 1.5rem;
   }
+
+  .illustration-text p {
+    font-size: 1rem;
+  }
+
+  .auth-form-container {
+    padding: 1rem;
+  }
+
+  .auth-form-wrapper {
+    box-shadow: none;
+    padding: 1.5rem;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
+/* Input focus animation */
+@keyframes inputFocus {
+  0% { border-color: var(--border-color); }
+  100% { border-color: var(--primary-green); }
+}
+
+.form-group input:focus {
+  animation: inputFocus 0.3s ease-in-out forwards;
+}
+
+/* Hover effects for form toggle buttons */
+.form-toggle .toggle-btn {
+  position: relative;
+}
+
+.form-toggle .toggle-btn::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--primary-green);
+  transition: width 0.3s ease-in-out;
+}
+
+.form-toggle .toggle-btn:hover::after {
+  width: 100%;
 }

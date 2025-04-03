@@ -1,8 +1,8 @@
 import React from 'react';
 import { ShoppingBag, Clock, CheckCircle, XCircle, TrendingUp, Calendar, ArrowRight } from 'lucide-react';
-import '../UserDashboard/userdashboardstyles/userhomepage.css'
+import './home.css';
 
-const UserHomepage = ({ onViewProduct, onViewAll }) => {
+const Home = ({ onViewProduct, onViewAll }) => {
   const recentOrders = [
     {
       id: 'ORD-2023-001',
@@ -178,4 +178,4 @@ const UserHomepage = ({ onViewProduct, onViewAll }) => {
   );
 };
 
-export default UserHomepage;
+export default Home;

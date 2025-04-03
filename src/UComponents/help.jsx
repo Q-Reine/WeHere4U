@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { ChevronDown, ChevronUp, Phone, Mail, MessageSquare } from "lucide-react"
-import "../UserDashboard/userdashboardstyles/help.css"
+import "./help.css"
 
 const Help = () => {
   const [activeQuestion, setActiveQuestion] = useState(null)
@@ -186,3 +186,4 @@ const Help = () => {
 }
 
 export default Help
+
