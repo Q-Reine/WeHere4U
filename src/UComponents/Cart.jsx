@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, Minus, Plus, CreditCard, ArrowLeft } from 'lucide-react';
-import './cart.css';
+import './Cart.css';
 
 const Cart = ({ cartItems, onClose, onRemoveItem, onUpdateQuantity }) => {
   const [checkoutStep, setCheckoutStep] = useState('cart'); // cart, payment, confirmation
