@@ -28,7 +28,7 @@ function AuthForm({ onLoginSuccess }) {
     setIsLoading(true);
     
     try {
-      const response = await axios.post('http://localhost:500/api/login', {
+      const response = await axios.post('http://localhost:5000/user/login', {
         email: formData.email,
         password: formData.password
       });
@@ -58,7 +58,7 @@ function AuthForm({ onLoginSuccess }) {
     setIsLoading(true);
     
     try {
-      const response = await axios.post('http://localhost:5000/api/register', {
+      const response = await axios.post('http://localhost:5000/user/register', {
         email: formData.email,
         password: formData.password,
         name: formData.name
