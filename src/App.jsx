@@ -28,7 +28,7 @@ import UserHome from './UComponents/home';
 import LocationModal from './UComponents/location-modal';
 import './App.css';
 
-// Authentication guard component
+// Authentication guard component - FIXED VERSION
 const RequireAuth = ({ children, allowedRoles = [] }) => {
   const location = useLocation();
   
@@ -43,9 +43,12 @@ const RequireAuth = ({ children, allowedRoles = [] }) => {
   
   // If roles specified and user doesn't have permission
   if (allowedRoles.length > 0 && !allowedRoles.includes(userRole)) {
-    // Redirect based on role
-    const redirectPath = userRole === 'admin' ? '/dashboard' : '/user/home';
-    return <Navigate to={redirectPath} state={{ from: location }} replace />;
+    // Redirect based on role - using pathname to avoid infinite loop
+    if (location.pathname.startsWith('/dashboard') && userRole !== 'admin') {
+      return <Navigate to="/user/home" state={{ from: location }} replace />;
+    } else if (location.pathname.startsWith('/user') && userRole !== 'user') {
+      return <Navigate to="/dashboard" state={{ from: location }} replace />;
+    }
   }
   
   // User authenticated and authorized
