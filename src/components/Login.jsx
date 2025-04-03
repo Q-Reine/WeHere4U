@@ -28,7 +28,7 @@ function AuthForm({ onLoginSuccess }) {
     setIsLoading(true);
     
     try {
-      const response = await axios.post('http://localhost:3001/api/login', {
+      const response = await axios.post('http://localhost:500/api/login', {
         email: formData.email,
         password: formData.password
       });
@@ -58,7 +58,7 @@ function AuthForm({ onLoginSuccess }) {
     setIsLoading(true);
     
     try {
-      const response = await axios.post('http://localhost:3001/api/register', {
+      const response = await axios.post('http://localhost:5000/api/register', {
         email: formData.email,
         password: formData.password,
         name: formData.name
@@ -87,12 +87,6 @@ function AuthForm({ onLoginSuccess }) {
     }
   };
 
-  const handleForgotPassword = () => {
-    // Implement password reset functionality
-    alert("Password reset functionality not implemented yet.");
-    // This could redirect to a password reset page or show a modal
-  };
-
   const toggleView = () => {
     setIsLoginView(!isLoginView);
     setError('');
@@ -106,8 +100,8 @@ function AuthForm({ onLoginSuccess }) {
           <img src="/logo.png" alt="Company Logo" />
         </div>
         <div className="illustration-text">
-          <h1>Welcome to Evuriro Health</h1>
-          <p>Secure, fast, and reliable healthcare services</p>
+          <h1>Welcome to Our Platform</h1>
+          <p>Secure, fast, and reliable service for all your needs</p>
         </div>
       </div>
       
@@ -189,7 +183,6 @@ function AuthForm({ onLoginSuccess }) {
                   onChange={handleChange}
                   required
                   placeholder="Create a password"
-                  minLength="8"
                   disabled={isLoading}
                 />
               </div>
@@ -212,7 +205,7 @@ function AuthForm({ onLoginSuccess }) {
           {isLoginView && (
             <div className="form-toggle">
               <span>Forgot your password?</span>
-              <button type="button" className="toggle-btn" onClick={handleForgotPassword}>Reset</button>
+              <button type="button" className="toggle-btn">Reset</button>
             </div>
           )}
         </div>
