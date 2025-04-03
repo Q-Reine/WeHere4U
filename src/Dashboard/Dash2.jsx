@@ -7,6 +7,8 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { User, Heart, Settings } from "lucide-react";
 
+
+
 const UserDashboard = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [textSize, setTextSize] = useState("normal");
