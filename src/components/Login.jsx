@@ -87,6 +87,12 @@ function AuthForm({ onLoginSuccess }) {
     }
   };
 
+  const handleForgotPassword = () => {
+    // Implement password reset functionality
+    alert("Password reset functionality not implemented yet.");
+    // This could redirect to a password reset page or show a modal
+  };
+
   const toggleView = () => {
     setIsLoginView(!isLoginView);
     setError('');
@@ -100,8 +106,8 @@ function AuthForm({ onLoginSuccess }) {
           <img src="/logo.png" alt="Company Logo" />
         </div>
         <div className="illustration-text">
-          <h1>Welcome to Our Platform</h1>
-          <p>Secure, fast, and reliable service for all your needs</p>
+          <h1>Welcome to Evuriro Health</h1>
+          <p>Secure, fast, and reliable healthcare services</p>
         </div>
       </div>
       
@@ -183,6 +189,7 @@ function AuthForm({ onLoginSuccess }) {
                   onChange={handleChange}
                   required
                   placeholder="Create a password"
+                  minLength="8"
                   disabled={isLoading}
                 />
               </div>
@@ -205,7 +212,7 @@ function AuthForm({ onLoginSuccess }) {
           {isLoginView && (
             <div className="form-toggle">
               <span>Forgot your password?</span>
-              <button type="button" className="toggle-btn">Reset</button>
+              <button type="button" className="toggle-btn" onClick={handleForgotPassword}>Reset</button>
             </div>
           )}
         </div>
