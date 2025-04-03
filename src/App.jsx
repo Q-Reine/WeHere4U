@@ -20,7 +20,7 @@ import ResourceHub from './Dashboard/ResourceHub';
 import Settings from './Dashboard/Settings';
 import Ulayout from './UComponents/Ulayout';
 import Usidebar from './UComponents/Usidebar';
-import Store from './UComponents/Store';
+import Store from './UComponents/store';
 import Orders from './UComponents/orders';
 import OrderDetails from './UComponents/order-details';
 import Profile from './UComponents/profile';
