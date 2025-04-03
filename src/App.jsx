@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import axios from 'axios'; // Make sure to install axios: npm install axios
+import axios from 'axios';
 import Layout from './components/Layout';
 import Home from './components/Home';
 import Marketplace from './components/Marketplace';
@@ -29,8 +29,8 @@ import UserHome from './UComponents/home';
 import LocationModal from './UComponents/location-modal';
 import './App.css';
 
-// Protected Route Component
-const ProtectedRoute = ({ children, allowedRoles = [] }) => {
+// Authentication guard with role checking
+const RequireAuth = ({ children, allowedRoles = [] }) => {
   const [isChecking, setIsChecking] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState(null);
@@ -100,23 +100,28 @@ const ProtectedRoute = ({ children, allowedRoles = [] }) => {
 };
 
 function App() {
-  const [activeItem, setActiveItem] = useState('home');
-  const [selectedOrder, setSelectedOrder] = useState(null);
-  const [showOrderDetails, setShowOrderDetails] = useState(false);
-  const [showCart, setShowCart] = useState(false);
-  const [showLocationModal, setShowLocationModal] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [location, setLocation] = useState('Masoro, Gasabo, Kigali City');
-
-  // Handle order click
-  const handleOrderClick = (order) => {
-    setSelectedOrder(order);
-    setShowOrderDetails(true);
+  const [showLocationModal, setShowLocationModal] = useState(false);
+  const [showCart, setShowCart] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  
+  // Handle logout
+  const handleLogout = () => {
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('userData');
+    return <Navigate to="/" replace />;
   };
 
   // Toggle cart visibility
   const toggleCart = () => {
     setShowCart(!showCart);
+  };
+
+  // Handle order click
+  const handleOrderClick = (order) => {
+    setSelectedOrder(order);
   };
 
   // Handle login success
@@ -125,103 +130,97 @@ function App() {
     return role === 'admin' ? '/dashboard' : '/user/home';
   };
 
-  // Handle logout
-  const handleLogout = () => {
-    localStorage.removeItem('userToken');
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('userData');
-    return '/';
+  // Shared state for user components
+  const userContextValue = {
+    cartItems,
+    setCartItems,
+    location,
+    setLocation,
+    showLocationModal,
+    setShowLocationModal,
+    showCart,
+    setShowCart,
+    toggleCart
   };
-
-  // User Dashboard Component with shared state
-  const UserDashboard = () => (
-    <div className="dashboard">
-      <div className="dashboard-header">
-        <h1>Ubufasha Assistive Devices</h1>
-        <div className="dashboard-actions">
-          <div className="cart-button" onClick={toggleCart}>
-            <span className="cart-icon">🛒</span>
-            {cartItems.length > 0 && (
-              <span className="cart-count">{cartItems.length}</span>
-            )}
-          </div>
-          <div className="location" onClick={() => setShowLocationModal(true)}>
-            <span>Delivering to: {location}</span>
-            <button className="change-location-btn">Change</button>
-          </div>
-        </div>
-      </div>
-      <Usidebar 
-        activeItem={activeItem} 
-        setActiveItem={setActiveItem} 
-        cartCount={cartItems.length} 
-        toggleCart={toggleCart}
-        onLogout={handleLogout}
-      />
-      {showLocationModal && (
-        <LocationModal 
-          currentLocation={location} 
-          onLocationChange={setLocation} 
-          onClose={() => setShowLocationModal(false)} 
-        />
-      )}
-      {showCart && (
-        <Cart 
-          items={cartItems}
-          setItems={setCartItems}
-          onClose={() => setShowCart(false)}
-        />
-      )}
-    </div>
-  );
 
   return (
     <BrowserRouter>
       <Routes>
-        {/* Main public routes */}
-        <Route path='/' element={<Layout />}>
+        {/* Public Routes */}
+        <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path='Marketplace' element={<Marketplace />} />
-          <Route path='Resources' element={<Resources />} />
-          <Route path='Community' element={<Community />} />
-          <Route path='GetInvolved' element={<GetInvolved />} />
-          <Route path='login' element={<Login onLoginSuccess={handleLoginSuccess} />} />
-          <Route path='SinglePage/:id' element={<SinglePage />} />
-          <Route path='view' element={<ProductPage />} />
+          <Route path="Marketplace" element={<Marketplace />} />
+          <Route path="Resources" element={<Resources />} />
+          <Route path="Community" element={<Community />} />
+          <Route path="GetInvolved" element={<GetInvolved />} />
+          <Route path="login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
+          <Route path="SinglePage/:id" element={<SinglePage />} />
+          <Route path="view" element={<ProductPage />} />
         </Route>
 
+        {/* Redirect Root */}
+        <Route
+          path="/"
+          element={
+            localStorage.getItem('userToken') ? (
+              localStorage.getItem('userRole') === 'admin' ? (
+                <Navigate to="/dashboard" replace />
+              ) : (
+                <Navigate to="/user/home" replace />
+              )
+            ) : (
+              <Navigate to="/" replace />
+            )
+          }
+        />
+
         {/* Admin dashboard routes - protected */}
-        <Route path='/dashboard' element={
-          <ProtectedRoute allowedRoles={['admin']}>
-            <DashboardLayout onLogout={handleLogout} />
-          </ProtectedRoute>
-        }>
+        <Route
+          path="/dashboard"
+          element={
+            <RequireAuth allowedRoles={['admin']}>
+              <DashboardLayout onLogout={handleLogout} />
+            </RequireAuth>
+          }
+        >
           <Route index element={<DashboardView />} />
-          <Route path='usermanagement' element={<UserManagement />} />
-          <Route path='devices' element={<AssistiveDevices />} />
-          <Route path='providers' element={<ServiceProviders />} />
-          <Route path='savedresources' element={<ResourceHub />} />
-          <Route path='settings' element={<Settings />} />
+          <Route path="usermanagement" element={<UserManagement />} />
+          <Route path="devices" element={<AssistiveDevices />} />
+          <Route path="providers" element={<ServiceProviders />} />
+          <Route path="savedresources" element={<ResourceHub />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Route>
 
         {/* User dashboard routes - protected */}
-        <Route path='/user' element={
-          <ProtectedRoute allowedRoles={['user']}>
-            <>
-              <UserDashboard />
-              <Ulayout />
-            </>
-          </ProtectedRoute>
-        }>
+        <Route
+          path="/user"
+          element={
+            <RequireAuth allowedRoles={['user']}>
+              <Ulayout 
+                cartItems={cartItems}
+                toggleCart={toggleCart}
+                location={location}
+                showLocationModal={showLocationModal}
+                setShowLocationModal={setShowLocationModal}
+                showCart={showCart}
+                setShowCart={setShowCart}
+                setLocation={setLocation}
+                setCartItems={setCartItems}
+              />
+            </RequireAuth>
+          }
+        >
           <Route index element={<Navigate to="/user/home" replace />} />
-          <Route path='home' element={<UserHome />} />
-          <Route path='store' element={<Store />} />
-          <Route path='orders' element={<Orders onOrderClick={handleOrderClick} />} />
-          <Route path='orders/:id' element={<OrderDetails order={selectedOrder} />} />
-          <Route path='profile' element={<Profile />} />
-          <Route path='settings' element={<Settings />} />
-          <Route path='help' element={<Help />} />
-          <Route path='cart' element={<Cart items={cartItems} setItems={setCartItems} />} />
+          <Route path="home" element={<UserHome />} />
+          <Route path="store" element={<Store />} />
+          <Route path="orders" element={<Orders onOrderClick={handleOrderClick} />} />
+          <Route path="orders/:id" element={<OrderDetails order={selectedOrder} />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="help" element={<Help />} />
+          <Route path="cart" element={<Cart items={cartItems} setItems={setCartItems} />} />
+          <Route path="*" element={<Navigate to="/user/home" replace />} />
         </Route>
       </Routes>
     </BrowserRouter>
